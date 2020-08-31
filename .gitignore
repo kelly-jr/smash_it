@@ -5,3 +5,6 @@ node_modules
 .sass-cache
 dist
 .cache
+.idea
+.code
+.vs-code
