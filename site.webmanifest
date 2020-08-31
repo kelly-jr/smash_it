@@ -1,0 +1,16 @@
+{
+  "short_name": "Smash",
+  "name": "Smash it",
+  "icons": [{
+    "src": "icon.png",
+    "type": "image/png",
+    "sizes": "192x192"
+  }],
+  "start_url": "/?utm_source=homescreen",
+  "theme_color": "#585c60",
+  "background_color": "rgba(11,11,11,0.88)",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/"
+}
