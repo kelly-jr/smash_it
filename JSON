@@ -204,7 +204,13 @@ textarea {
   h2,
   h3 {
     page-break-after: avoid; } }
-p {
-  color: blue; }
+body {
+  background-color: black;
+  color: white; }
+  body p {
+    text-align: center; }
+
+.input-field input[type=search] + .label-icon {
+  text-align: right; }
 
 /*# sourceMappingURL=JSON.map */

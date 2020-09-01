@@ -1,12 +1,33 @@
-function getWeatherData() {
-  getJSON(`https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=${WEATHER_API_KEY}`, function (status, data) {
-    if (status === null) {
-      console.log(data);
-    }
+function getWeatherData({lat, lon, location}) {
+  let url = new URL(WEATHER_URL);
+  let params = new URLSearchParams(url.search);
+
+  if (lat && lon) {
+    params.append("lat", lat);
+    params.append("lon", lon);
+    params.delete("q");
+  }
+
+  if (location && !(lat || lon)) {
+    params.delete("lat");
+    params.delete("lon");
+    params.append("q", location);
+  }
+
+  let updated_url = `${url.origin}${url.pathname}?${params.toString()}`;
+  getJSON(updated_url, function (data) {
+    updateWeatherData(data);
   });
+}
+
+function updateWeatherData(data) {
+  // Todo: Update dom content
+  LOGGING.innerText = `${data.name}`;
+  console.log(data);
 }
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  getWeatherData();
+  getLocation();
+  getWeatherData(MY_LOCATION);
 });

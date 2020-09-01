@@ -1,7 +1,17 @@
+@import "defaults";
 @import "override";
 @import "print";
 
+body {
+  background-color: black;
+  color: white;
 
-p{
-  color: blue;
+  p {
+    text-align: center;
+  }
 }
+
+.input-field input[type=search]+.label-icon {
+  text-align: right;
+}
+
