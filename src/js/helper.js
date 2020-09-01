@@ -12,6 +12,7 @@ var getJSON = (url, callback) => {
 var getLocation = () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
+
       LOCATION_TRACKER.lat = position.coords.latitude;
       LOCATION_TRACKER.lon = position.coords.longitude;
     });
@@ -28,4 +29,8 @@ function status(response) {
 
 function json(response) {
   return response.json();
+}
+
+function updateValue(selector, value) {
+  document.querySelector(selector).innerHTML = value;
 }

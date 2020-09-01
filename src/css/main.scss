@@ -11,7 +11,58 @@ body {
   }
 }
 
-.input-field input[type=search]+.label-icon {
-  text-align: right;
+nav {
+  background-color: $secondary;
+
+  .brand-logo {
+    padding: 0 15px;
+  }
+}
+
+.container-fluid {
+  width: 100%;
+  max-width: initial;
+  border-top: solid 1px $white_transparent;
+
+  .row {
+    margin: 0;
+
+    .col {
+      padding: 0;
+    }
+  }
+}
+
+.current{
+  .card-title{
+    font-size: 2rem;
+
+    .description{
+      font-size: 1rem;
+    }
+  }
+
+  p{
+    font-size: 1.2rem;
+  }
+  .temperature{
+    font-size: 3.5rem;
+  }
+}
+
+.icon{
+  .updatable{
+    width: 5em;
+    height: 5em;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
+.hourly{
+  display: flex;
+  overflow-x: auto;
+
 }
 

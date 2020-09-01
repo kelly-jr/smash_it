@@ -1,4 +1,8 @@
 function getWeatherData({lat, lon, location}) {
+  if (!lat && !lon && !location) {
+    return;
+  }
+
   let url = new URL(WEATHER_URL);
   let params = new URLSearchParams(url.search);
 
@@ -8,7 +12,7 @@ function getWeatherData({lat, lon, location}) {
     params.delete("q");
   }
 
-  if (location && !(lat || lon)) {
+  if (location && (!lat || !lon)) {
     params.delete("lat");
     params.delete("lon");
     params.append("q", location);
@@ -21,11 +25,12 @@ function getWeatherData({lat, lon, location}) {
 }
 
 function updateWeatherData(data) {
-  // Todo: Update dom content
-  LOGGING.innerText = `${data.name}`;
-  console.log(data);
+  let {current, daily, hourly, timezone} = data;
+  updateLocation(timezone)
+  updateCurrentWeather(current);
+  updateDailyForecast(daily);
+  updateHourlyForecast(hourly);
 }
-
 
 document.addEventListener("DOMContentLoaded", function () {
   getLocation();
