@@ -53,6 +53,10 @@
               <p class="left-align">L:<span class="value">-</span><span class="temp_unit">&deg;</span></p>
             </div>
           </div>
+
+          <div class="refresh row">
+            <p class="data_refresh" >Last data update: <span class="updatable"></span></p>
+          </div>
         </div>
       </div>
     </div>
@@ -60,9 +64,52 @@
 </div>
 
 <div class="container-fluid">
-  <div class="container">
-    <div class="hourly">
+  <div class="hourly">
+  </div>
+
+  <div class="days">
+    <div class="container">
+      <div class="row daily-forecast">
+      </div>
     </div>
+  </div>
+
+  <div class="current-details">
+    <div class="container">
+      <div class="row">
+        <div class="col s6 sunrise">
+          <h4 class="title">Sunrise</h4>
+          <p class="value"><span class="updatable"></span></p>
+        </div>
+        <div class="col s6 sunset">
+          <h4 class="title">Sunset</h4>
+          <p class="value"><span class="updatable"></span></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6 wind">
+          <h4 class="title">Wind</h4>
+          <p class="value"><span class="updatable"></span>&nbsp;<span class="speed_unit">mps</span></p>
+        </div>
+        <div class="col s6 feel">
+          <h4 class="title">Feels like</h4>
+          <p class="value"><span class="updatable"></span><span class="temp_unit">&deg;</span></p>
+        </div>
+      </div>
+
+      <div class="row no-border">
+        <div class="col s6 vision">
+          <h4 class="title">Visibility</h4>
+          <p class="value"><span class="updatable"></span>&nbsp;<span class="distance_unit">km</span></p>
+        </div>
+        <div class="col s6 uvi">
+          <h4 class="title">UV Index</h4>
+          <p class="value"><span class="updatable"></span></p>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 

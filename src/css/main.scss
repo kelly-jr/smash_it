@@ -9,6 +9,12 @@ body {
   p {
     text-align: center;
   }
+
+  span {
+    &.low {
+      color: $white_transparent;
+    }
+  }
 }
 
 nav {
@@ -19,10 +25,14 @@ nav {
   }
 }
 
+.bold {
+  font-weight: bold;
+}
+
+
 .container-fluid {
   width: 100%;
   max-width: initial;
-  border-top: solid 1px $white_transparent;
 
   .row {
     margin: 0;
@@ -33,25 +43,26 @@ nav {
   }
 }
 
-.current{
-  .card-title{
+.current {
+  .card-title {
     font-size: 2rem;
 
-    .description{
+    .description {
       font-size: 1rem;
     }
   }
 
-  p{
+  p {
     font-size: 1.2rem;
   }
-  .temperature{
+
+  .temperature {
     font-size: 3.5rem;
   }
 }
 
-.icon{
-  .updatable{
+.icon {
+  .updatable {
     width: 5em;
     height: 5em;
     background-position: center;
@@ -60,9 +71,67 @@ nav {
   }
 }
 
-.hourly{
-  display: flex;
-  overflow-x: auto;
-
+.hourly, .days, .current-details {
+  border-bottom: solid 1px $white_transparent;
 }
+
+.hourly {
+  display: flex;
+  overflow-x: hidden;
+  border-top: solid 1px $white_transparent;
+  padding: 1em 0;
+}
+
+.days{
+  padding: 1.5em 0;
+}
+.current-details{
+  margin-bottom: 2em;
+  .row{
+    border-bottom: solid 1px $white_transparent;
+
+    &.no-border{
+      border: none;
+    }
+  }
+
+  .title{
+    color: $white_transparent;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    margin-bottom: 1px;
+  }
+
+  p{
+    text-align: left;
+    font-size: 1.75rem;
+    margin: 0;
+  }
+}
+
+.hourly__content {
+  text-align: center;
+  padding: 0 1em;
+
+  .icon {
+    font-size: 1.5rem;
+    padding: 0.1em;
+  }
+}
+
+.forecast {
+  .col {
+    padding-left: 0 !important;
+  }
+
+  .icon {
+    font-size: 1.5rem;
+  }
+}
+
+p.data_refresh{
+  font-size: 0.75rem;
+  color: $white_transparent;
+}
+
 

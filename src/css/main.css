@@ -209,16 +209,20 @@ body {
   color: white; }
   body p {
     text-align: center; }
+  body span.low {
+    color: rgba(236, 236, 236, 0.7); }
 
 nav {
   background-color: #ffac81; }
   nav .brand-logo {
     padding: 0 15px; }
 
+.bold {
+  font-weight: bold; }
+
 .container-fluid {
   width: 100%;
-  max-width: initial;
-  border-top: solid 1px rgba(236, 236, 236, 0.7); }
+  max-width: initial; }
   .container-fluid .row {
     margin: 0; }
     .container-fluid .row .col {
@@ -240,8 +244,48 @@ nav {
   background-repeat: no-repeat;
   background-size: contain; }
 
+.hourly, .days, .current-details {
+  border-bottom: solid 1px rgba(236, 236, 236, 0.7); }
+
 .hourly {
   display: flex;
-  overflow-x: auto; }
+  overflow-x: hidden;
+  border-top: solid 1px rgba(236, 236, 236, 0.7);
+  padding: 1em 0; }
+
+.days {
+  padding: 1.5em 0; }
+
+.current-details {
+  margin-bottom: 2em; }
+  .current-details .row {
+    border-bottom: solid 1px rgba(236, 236, 236, 0.7); }
+    .current-details .row.no-border {
+      border: none; }
+  .current-details .title {
+    color: rgba(236, 236, 236, 0.7);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    margin-bottom: 1px; }
+  .current-details p {
+    text-align: left;
+    font-size: 1.75rem;
+    margin: 0; }
+
+.hourly__content {
+  text-align: center;
+  padding: 0 1em; }
+  .hourly__content .icon {
+    font-size: 1.5rem;
+    padding: 0.1em; }
+
+.forecast .col {
+  padding-left: 0 !important; }
+.forecast .icon {
+  font-size: 1.5rem; }
+
+p.data_refresh {
+  font-size: 0.75rem;
+  color: rgba(236, 236, 236, 0.7); }
 
 /*# sourceMappingURL=main.css.map */

@@ -34,3 +34,7 @@ function json(response) {
 function updateValue(selector, value) {
   document.querySelector(selector).innerHTML = value;
 }
+
+function addChildElement(selector, element) {
+  document.querySelector(selector).innerHTML += element;
+}

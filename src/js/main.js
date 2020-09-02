@@ -26,6 +26,7 @@ function getWeatherData({lat, lon, location}) {
 
 function updateWeatherData(data) {
   let {current, daily, hourly, timezone} = data;
+
   updateLocation(timezone)
   updateCurrentWeather(current);
   updateDailyForecast(daily);
