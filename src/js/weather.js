@@ -15,9 +15,9 @@ function updateDailyForecast(data) {
 }
 
 function updateHourlyForecast(data) {
-  console.log(data.length);
   data.slice(0, 24).map((row, index) => {
-    let {temp, dt, weather: [{description, icon, main}]} = row;
+    let {temp, dt, weather: [{description, id, icon, main}]} = row;
+    let day_night = icon.slice(-1)
     temp = Math.round(temp);
     let hour = moment.unix(dt).format("HH");
     let hour_class = "normal";
@@ -32,10 +32,7 @@ function updateHourlyForecast(data) {
   <div class=" hour ${hour_class}">
       <span class="updatable">${hour}</span>
   </div>
-  <div class=" icon">
-      <div class="updatable" style="background-image: url('/src/img/icons/${icon}.png')">
-      </div>
-  </div>
+  <div class=" icon"><i class="owf owf-${id}-${day_night}"></i></div>
   <div class=" temp">
       <span class="updatable">${temp}&deg;</span>
   </div>
