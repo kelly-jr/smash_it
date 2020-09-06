@@ -32,15 +32,51 @@
 <nav>
   <div class="nav-wrapper">
     <a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Smash</a>
-    <ul class="right hide-on-med-and-down">
-      <li><a href="#!"><i class="material-icons">search</i></a></li>
-    </ul>
   </div>
 </nav>
-
 <div class="container">
+  <div class="search-field">
+    <input type="search" id="breakdown_search" name="breakdown_filter" class="search-text" onkeyup="filterBreakdown()"
+           placeholder="Search..." autocomplete="off">
+  </div>
+</div>
+
+<div class="container" style="position: relative;">
+  <div class="home" id="home">
+    <div class="icon">
+      <svg version="1.1" id="home_icon" xmlns="http://www.w3.org/2000/svg"
+           x="0px" y="0px"
+           viewBox="0 0 477.846 477.846" style="enable-background:new 0 0 477.846 477.846;" xml:space="preserve">
+        <g>
+          <g>
+            <path d="M472.847,226.846l-34.116-34.116L250.998,4.997c-6.664-6.663-17.468-6.663-24.132,0L39.132,192.73L4.999,226.864
+              c-6.548,6.78-6.361,17.584,0.419,24.132c6.614,6.388,17.099,6.388,23.713,0l4.983-5.018v214.801
+              c0,9.426,7.641,17.067,17.067,17.067h375.467c9.426,0,17.067-7.641,17.067-17.067V245.978l5,5.001
+              c6.78,6.548,17.584,6.36,24.132-0.419C479.235,243.946,479.235,233.46,472.847,226.846z M290.115,443.713h-102.4V307.179h102.4
+              V443.713z M409.581,443.713h-85.333v-153.6c0-9.426-7.641-17.067-17.067-17.067H170.648c-9.426,0-17.067,7.641-17.067,17.067
+              v153.6H68.248V211.845L238.914,41.178l170.667,170.667V443.713z"/>
+          </g>
+        </g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+      </svg>
+    </div>
+  </div>
   <div class="row">
-    <div class="col s12 m6">
+    <div class="col s12">
       <div class="card current transparent">
         <div class="card-content white-text">
           <h2 class="card-title center"><span class="location">-</span><br/><span class="description"></span></h2>
@@ -55,7 +91,7 @@
           </div>
 
           <div class="refresh row">
-            <p class="data_refresh" >Last data update: <span class="updatable"></span></p>
+            <p class="data_refresh">Last data update: <span class="updatable"></span></p>
           </div>
         </div>
       </div>
@@ -64,52 +100,59 @@
 </div>
 
 <div class="container-fluid">
-  <div class="hourly">
-  </div>
+  <div class="row">
+    <div class="hourly col s12">
+      <div class="hourly-wrapper">
 
-  <div class="days">
-    <div class="container">
-      <div class="row daily-forecast">
       </div>
     </div>
   </div>
 
-  <div class="current-details">
-    <div class="container">
-      <div class="row">
-        <div class="col s6 sunrise">
-          <h4 class="title">Sunrise</h4>
-          <p class="value"><span class="updatable"></span></p>
-        </div>
-        <div class="col s6 sunset">
-          <h4 class="title">Sunset</h4>
-          <p class="value"><span class="updatable"></span></p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s6 wind">
-          <h4 class="title">Wind</h4>
-          <p class="value"><span class="updatable"></span>&nbsp;<span class="speed_unit">mps</span></p>
-        </div>
-        <div class="col s6 feel">
-          <h4 class="title">Feels like</h4>
-          <p class="value"><span class="updatable"></span><span class="temp_unit">&deg;</span></p>
-        </div>
-      </div>
-
-      <div class="row no-border">
-        <div class="col s6 vision">
-          <h4 class="title">Visibility</h4>
-          <p class="value"><span class="updatable"></span>&nbsp;<span class="distance_unit">km</span></p>
-        </div>
-        <div class="col s6 uvi">
-          <h4 class="title">UV Index</h4>
-          <p class="value"><span class="updatable"></span></p>
+  <div class="row same-height">
+    <div class="col s12 l6 days">
+      <div class="container">
+        <div class="row daily-forecast">
         </div>
       </div>
     </div>
 
+    <div class="col s12 l6 current-details">
+      <div class="container">
+        <div class="row">
+          <div class="col s6 sunrise">
+            <h4 class="title">Sunrise</h4>
+            <p class="value"><span class="updatable"></span></p>
+          </div>
+          <div class="col s6 sunset">
+            <h4 class="title">Sunset</h4>
+            <p class="value"><span class="updatable"></span></p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s6 wind">
+            <h4 class="title">Wind</h4>
+            <p class="value"><span class="updatable"></span>&nbsp;<span class="speed_unit">mps</span></p>
+          </div>
+          <div class="col s6 feel">
+            <h4 class="title">Feels like</h4>
+            <p class="value"><span class="updatable"></span><span class="temp_unit">&deg;</span></p>
+          </div>
+        </div>
+
+        <div class="row no-border">
+          <div class="col s6 vision">
+            <h4 class="title">Visibility</h4>
+            <p class="value"><span class="updatable"></span>&nbsp;<span class="distance_unit">km</span></p>
+          </div>
+          <div class="col s6 uvi">
+            <h4 class="title">UV Index</h4>
+            <p class="value"><span class="updatable"></span></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -117,6 +160,9 @@
 <script src="sw.js"></script>
 <script src="src/js/vendor/modernizr-3.11.2.min.js"></script>
 <script src="src/js/vendor/moment.js"></script>
+<script src="src/js/vendor/popper.min.js"></script>
+<script src="src/js/vendor/tippy-bundle.umd.min.js"></script>
+
 <!--JavaScript at end of body for optimized loading-->
 <script type="text/javascript" src="src/js/vendor/materialize.min.js"></script>
 
@@ -125,6 +171,7 @@
 <script src="./src/js/helper.js"></script>
 <script src="src/js/plugins.js"></script>
 <script src="src/js/weather.js"></script>
+<script src="./src/js/tooltip.js"></script>
 <script src="./src/js/main.js"></script>
 
 <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->

@@ -1,3 +1,5 @@
+let functionTimeout = null;
+
 function getWeatherData({lat, lon, location}) {
   if (!lat && !lon && !location) {
     return;
@@ -27,13 +29,32 @@ function getWeatherData({lat, lon, location}) {
 function updateWeatherData(data) {
   let {current, daily, hourly, timezone} = data;
 
-  updateLocation(timezone)
-  updateCurrentWeather(current);
-  updateDailyForecast(daily);
-  updateHourlyForecast(hourly);
+  updateWeatherForecast.location(timezone);
+  updateWeatherForecast.current(current);
+  updateWeatherForecast.daily(daily);
+  updateWeatherForecast.hourly(hourly);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
   getLocation();
   getWeatherData(MY_LOCATION);
+  renderTooltips();
 });
+
+
+function filterBreakdown() {
+  clearTimeout(functionTimeout);
+
+  // Wait 1 secs after key press
+  functionTimeout = setTimeout(() => {
+    let input = document.getElementById("breakdown_search");
+    let filter_value = input.value;
+    // let search_endpoint = SEARCH_URL + filter_value;
+
+    getJSON(OPENCAGE_URL, (data)=>{
+      console.log(data);
+    })
+
+    console.log(filter_value);
+  }, 1000);
+}

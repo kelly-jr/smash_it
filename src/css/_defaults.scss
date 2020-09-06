@@ -3,6 +3,7 @@ $secondary: rgb(255, 172, 129);
 $accent: rgb(195, 247, 58);
 $white_transparent: rgba(236, 236, 236, 0.7);
 $white: rgb(255, 255, 255);
+$black: rgb(0, 0, 0);
 
 @mixin no-select {
   -webkit-touch-callout: none; /* iOS Safari */

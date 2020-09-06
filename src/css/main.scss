@@ -43,6 +43,13 @@ nav {
   }
 }
 
+.row {
+  &.same-height {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
 .current {
   .card-title {
     font-size: 2rem;
@@ -76,36 +83,63 @@ nav {
 }
 
 .hourly {
-  display: flex;
-  overflow-x: hidden;
   border-top: solid 1px $white_transparent;
-  padding: 1em 0;
+  padding: 1em 0 !important;
 }
 
-.days{
-  padding: 1.5em 0;
+.hourly-wrapper {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  @include hide-scrollBar;
 }
-.current-details{
-  margin-bottom: 2em;
-  .row{
+
+@media screen and (min-width: 993px) {
+  .hourly-wrapper {
+    width: 90%;
+    margin: auto;
+  }
+}
+
+//@media screen and (min-width: 1350px){
+//  .hourly-wrapper {
+//    width: 85%;
+//  }
+//}
+
+.days, .current-details {
+  padding: 1.5em 0 !important;
+}
+
+.current-details {
+  //margin-bottom: 2em;
+  .row {
     border-bottom: solid 1px $white_transparent;
 
-    &.no-border{
+    &.no-border {
       border: none;
     }
   }
 
-  .title{
+  .title {
     color: $white_transparent;
     text-transform: uppercase;
     font-size: 0.75rem;
     margin-bottom: 1px;
   }
 
-  p{
+  p {
     text-align: left;
     font-size: 1.75rem;
     margin: 0;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .current-details {
+    .title, p {
+      text-align: center;
+    }
   }
 }
 
@@ -129,9 +163,79 @@ nav {
   }
 }
 
-p.data_refresh{
+p.data_refresh {
   font-size: 0.75rem;
   color: $white_transparent;
 }
+
+input.search-text {
+  position: relative;
+  z-index: 5;
+  transition: z-index 0.8s, width 0.5s, background 0.3s ease, border 0.3s !important;
+  height: 2em;
+  width: 1em !important;
+  padding: 5px 0 5px 40px !important;
+  box-sizing: border-box !important;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none !important;
+  outline: none;
+  //Icons made by "https://www.flaticon.com/authors/smashicons" from "https://www.flaticon.com/"
+  background: url('../img/search.svg') no-repeat center center !important;
+  background-size: 20px !important;
+  float: right;
+}
+
+input.search-text:focus {
+  z-index: 3;
+  width: 100% !important;
+  outline: none !important;
+  cursor: auto;
+  padding-right: 10px;
+  color: $black;
+  background-color: $white !important;
+  background-image: none;
+  background-size: 15px !important;
+
+}
+
+input.search-text::-webkit-search-cancel-button {
+  cursor: pointer;
+  color: black;
+}
+
+.home {
+  position: absolute;
+  top: 5em;
+  left: 1em;
+  border-radius: 5em;
+  background-color: $white_transparent;
+  height: 2.5em;
+  width: 2.5em;
+  display: flex;
+  z-index: 5;
+
+
+  .icon {
+    margin: auto;
+    fill: $black;
+    cursor: pointer;
+  }
+
+  &.active {
+    background-color: $accent;
+
+    .icon {
+      fill: $black;
+    }
+  }
+}
+
+#home_icon {
+  height: 1.5em;
+  width: 1.5em;
+  margin: auto;
+}
+
 
 
