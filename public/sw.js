@@ -1,4 +1,4 @@
-var CACHE_NAME = "v3";
+var CACHE_NAME = "v4";
 var urlsToCache = [
   "/",
   "src/css/vendor/owfont-regular.min.css",
@@ -6,7 +6,7 @@ var urlsToCache = [
   "src/js/bundle.min.js"
 ];
 
-var cacheAllowlist = ["v3"];
+var cacheAllowlist = ["v4"];
 
 
 if ("serviceWorker" in navigator) {
