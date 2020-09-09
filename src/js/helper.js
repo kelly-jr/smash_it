@@ -27,7 +27,11 @@ function getJSONData(url, callback) {
 }
 
 var getLocation = () => {
-  let location = JSON.parse(localStorage.getItem("home"));
+  let location;
+
+  if(localStorage.getItem("home")){
+    location = JSON.parse(localStorage.getItem("home"));
+  }
 
   if (!location) {
     if (navigator.geolocation) {
@@ -37,8 +41,11 @@ var getLocation = () => {
       });
     }
     location = MY_LOCATION;
+    console.log(location);
   }
+  debugger;
 
+  console.log(location);
   getWeatherData({...location});
 };
 
