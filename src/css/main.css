@@ -331,7 +331,8 @@ input.search-text:focus {
   color: black;
   background-color: white !important;
   background-image: none;
-  background-size: 15px !important; }
+  background-size: 15px !important;
+  background: none; }
 
 input.search-text::-webkit-search-cancel-button {
   cursor: pointer;

@@ -1,15 +1,20 @@
 const updateWeatherForecast = {
   "current": function (data) {
-    let {temp, dt, feels_like, humidity, sunrise, sunset, uvi, wind_speed, visibility, weather: [{description, icon, main}]} = data;
+    let {main:{temp, temp_max, temp_min, feels_like, humidity}, dt, sys:{sunrise, sunset}, wind: {speed: wind_speed}, visibility, weather:[{description, icon, main}]} = data;
     dt = moment.unix(dt).format("HH:MM");
     sunrise = moment.unix(sunrise).format("HH:MM");
     sunset = moment.unix(sunset).format("HH:MM");
     temp = Math.round(temp);
     feels_like = Math.round(feels_like);
     visibility = visibility / 1000;
+    temp_max = Math.round(temp_max);
+    temp_min = Math.round(temp_min);
 
     updateValue(".current > .card-content > .card-title > .description", description);
     updateValue(".current > .card-content > .temperature > .value", temp);
+
+    updateValue(".high > p > .value", temp_max);
+    updateValue(".low > p > .value", temp_min);
 
     updateValue(".data_refresh > .updatable", dt);
     updateValue(".sunrise > .value > .updatable", sunrise);
@@ -17,7 +22,7 @@ const updateWeatherForecast = {
     updateValue(".wind > .value > .updatable", wind_speed);
     updateValue(".feel > .value > .updatable", feels_like);
     updateValue(".vision > .value > .updatable", visibility);
-    updateValue(".uvi > .value > .updatable", uvi);
+    updateValue(".humidity > .value > .updatable", humidity);
   },
   "hourly": function (data) {
     // Slice to only get 24hr predictions: Including current hr
@@ -50,7 +55,7 @@ const updateWeatherForecast = {
   },
   "daily": function (data) {
     // Slice removes today from the list of forecast dates
-    data.slice(1).map((row, index) => {
+    data.slice(1, 8).map((row, index) => {
       let {temp, dt, weather: [{description, id, icon, main}]} = row;
       let day_night = icon.slice(-1);
       let {min, max} = temp;
@@ -78,8 +83,7 @@ const updateWeatherForecast = {
       addChildElement(".daily-forecast", element);
     });
   },
-  "location": function(timezone){
-    let [geography, city] = timezone.split("/");
+  "location": function(city){
     updateValue(".current > .card-content > .card-title > .location", city);
   }
 };

@@ -1,5 +1,7 @@
-var getJSON = (url, callback) => {
-  fetch(url)
+var getJSON = ({url, callback, options}) => {
+  options = options || {mode: "cors"};
+
+  fetch(url, options)
     .then(status)
     .then(json)
     .then(function (data) {
@@ -9,13 +11,35 @@ var getJSON = (url, callback) => {
   });
 };
 
+function getJSONData(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", url, true);
+  xhr.responseType = "json";
+  xhr.onload = function () {
+    var status = xhr.status;
+    if (status === 200) {
+      callback(null, xhr.response);
+    } else {
+      callback(status, xhr.response);
+    }
+  };
+  xhr.send();
+}
+
 var getLocation = () => {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      LOCATION_TRACKER.lat = position.coords.latitude;
-      LOCATION_TRACKER.lon = position.coords.longitude;
-    });
+  let location = JSON.parse(localStorage.getItem("home"));
+
+  if (!location) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        // debugger;
+        MY_LOCATION = {lat: position.coords.latitude, lng: position.coords.longitude};
+      });
+    }
+    location = MY_LOCATION;
   }
+
+  getWeatherData({...location});
 };
 
 function status(response) {
@@ -36,4 +60,34 @@ function updateValue(selector, value) {
 
 function addChildElement(selector, element) {
   document.querySelector(selector).innerHTML += element;
+}
+
+/*Compares two objects to see if they are equivalent
+* @param a {Object} - First object
+* @param b {Object} - Second object */
+
+function objectsAreEquivalent(a, b) {
+  // Create arrays of property names
+  var aProps = Object.getOwnPropertyNames(a);
+  var bProps = Object.getOwnPropertyNames(b);
+
+  // If number of properties is different,
+  // objects are not equivalent
+  if (aProps.length != bProps.length) {
+    return false;
+  }
+
+  for (var i = 0; i < aProps.length; i++) {
+    var propName = aProps[i];
+
+    // If values of same property are not equal,
+    // objects are not equivalent
+    if (a[propName] !== b[propName]) {
+      return false;
+    }
+  }
+
+  // If we made it this far, objects
+  // are considered equivalent
+  return true;
 }
