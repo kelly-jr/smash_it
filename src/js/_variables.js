@@ -5,6 +5,8 @@ const WEATHER_URL = `https://api.openweathermap.org/data/2.5/onecall?appid=${WEA
 const CURRENT_WEATHER_URL = `https://api.openweathermap.org/data/2.5/weather?appid=${WEATHER_API_KEY}&units=metric`;
 const OPENCAGE_URL = `https://api.opencagedata.com/geocode/v1/json?key=${OPENCAGE_API_KEY}&q=`;
 
-var MY_LOCATION = {lat: null, lng: null};
+// Default weather location is Nairobi Kenya
+var MY_LOCATION = {lat: -1.3025068, lng: 36.5672108};
 
 var home = document.getElementById("home");
+const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];

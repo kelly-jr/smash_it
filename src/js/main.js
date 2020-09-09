@@ -25,7 +25,6 @@ function current_data(url) {
 
 document.addEventListener("DOMContentLoaded", function () {
   getLocation();
-  renderTooltips();
 });
 
 home.addEventListener("click", setHome);

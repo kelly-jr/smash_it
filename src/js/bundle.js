@@ -1,3 +1,4 @@
+// _variables.js
 const WEATHER_API_KEY = "f47ae49c55b6fb4c7da781cd3ebd92a8";
 const OPENCAGE_API_KEY = "77fb67b4922c4cb1ae1b56d22b65abeb";
 
@@ -5,10 +6,14 @@ const WEATHER_URL = `https://api.openweathermap.org/data/2.5/onecall?appid=${WEA
 const CURRENT_WEATHER_URL = `https://api.openweathermap.org/data/2.5/weather?appid=${WEATHER_API_KEY}&units=metric`;
 const OPENCAGE_URL = `https://api.opencagedata.com/geocode/v1/json?key=${OPENCAGE_API_KEY}&q=`;
 
-var MY_LOCATION = {lat: null, lng: null};
+// Default weather location is Nairobi Kenya
+var MY_LOCATION = {lat: -1.3025068, lng: 36.5672108};
 
 var home = document.getElementById("home");
+const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+
+// helper.js
 var getJSON = ({url, callback, options}) => {
   options = options || {mode: "cors"};
 
@@ -38,21 +43,12 @@ function getJSONData(url, callback) {
 }
 
 var getLocation = () => {
-  let location;
+  let location = MY_LOCATION;
 
-  if(localStorage.getItem("home")){
+  if (localStorage.getItem("home")) {
     location = JSON.parse(localStorage.getItem("home"));
   }
 
-  if (!location) {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        // debugger;
-        MY_LOCATION = {lat: position.coords.latitude, lng: position.coords.longitude};
-      });
-    }
-    location = MY_LOCATION;
-  }
   getWeatherData({...location});
 };
 
@@ -72,6 +68,10 @@ function updateValue(selector, value) {
   document.querySelector(selector).innerHTML = value;
 }
 
+function clearChildElement(selector) {
+  document.querySelector(selector).innerHTML = "";
+}
+
 function addChildElement(selector, element) {
   document.querySelector(selector).innerHTML += element;
 }
@@ -81,6 +81,10 @@ function addChildElement(selector, element) {
 * @param b {Object} - Second object */
 
 function objectsAreEquivalent(a, b) {
+  if (!a || !b) {
+    return false;
+  }
+
   // Create arrays of property names
   var aProps = Object.getOwnPropertyNames(a);
   var bProps = Object.getOwnPropertyNames(b);
@@ -106,12 +110,48 @@ function objectsAreEquivalent(a, b) {
   return true;
 }
 
+
+// plugins.js
+// Avoid `console` errors in browsers that lack a console.
+(function () {
+  var method;
+  var noop = function () {
+  };
+  var methods = [
+    "assert", "clear", "count", "debug", "dir", "dirxml", "error",
+    "exception", "group", "groupCollapsed", "groupEnd", "info", "log",
+    "markTimeline", "profile", "profileEnd", "table", "time", "timeEnd",
+    "timeline", "timelineEnd", "timeStamp", "trace", "warn"
+  ];
+  var length = methods.length;
+  var console = (window.console = window.console || {});
+
+  while (length--) {
+    method = methods[length];
+
+    // Only stub undefined methods.
+    if (!console[method]) {
+      console[method] = noop;
+    }
+  }
+}());
+
+// Place any jQuery/helper plugins in here.
+
+
+// weather.js
 const updateWeatherForecast = {
   "current": function (data) {
-    let {main:{temp, temp_max, temp_min, feels_like, humidity}, dt, sys:{sunrise, sunset}, wind: {speed: wind_speed}, visibility, weather:[{description, icon, main}]} = data;
-    dt = moment.unix(dt).format("HH:MM");
-    sunrise = moment.unix(sunrise).format("HH:MM");
-    sunset = moment.unix(sunset).format("HH:MM");
+    let {main: {temp, temp_max, temp_min, feels_like, humidity}, dt, sys: {sunrise, sunset}, wind: {speed: wind_speed}, visibility, weather: [{description, icon, main}]} = data;
+
+    let dt_date = new Date(dt * 1000);
+    let sunrise_date = new Date(sunrise * 1000);
+    let sunset_date = new Date(sunset * 1000);
+
+    dt = `${dt_date.getUTCHours().toString().padStart(2, "0")}:${dt_date.getUTCMinutes().toString().padStart(2, "0")}`;
+    sunrise = `${sunrise_date.getUTCHours().toString().padStart(2, "0")}:${sunrise_date.getUTCMinutes().toString().padStart(2, "0")}`;
+    sunset = `${sunset_date.getUTCHours().toString().padStart(2, "0")}:${sunset_date.getUTCMinutes().toString().padStart(2, "0")}`;
+
     temp = Math.round(temp);
     feels_like = Math.round(feels_like);
     visibility = visibility / 1000;
@@ -134,11 +174,14 @@ const updateWeatherForecast = {
   },
   "hourly": function (data) {
     // Slice to only get 24hr predictions: Including current hr
+    clearChildElement(".hourly > .hourly-wrapper");
     data.slice(0, 24).map((row, index) => {
       let {temp, dt, weather: [{description, id, icon, main}]} = row;
       let day_night = icon.slice(-1);
       temp = Math.round(temp);
-      let hour = moment.unix(dt).format("HH");
+      let dt_date = new Date(dt * 1000);
+
+      let hour = `${dt_date.getUTCHours().toString().padStart(2, "0")}`;
       let hour_class = "normal";
 
       if (index === 0) {
@@ -163,11 +206,14 @@ const updateWeatherForecast = {
   },
   "daily": function (data) {
     // Slice removes today from the list of forecast dates
+    clearChildElement(".daily-forecast");
     data.slice(1, 8).map((row, index) => {
       let {temp, dt, weather: [{description, id, icon, main}]} = row;
       let day_night = icon.slice(-1);
       let {min, max} = temp;
-      let day = moment.unix(dt).format("dddd");
+      let dt_date = new Date(dt * 1000);
+
+      let day = days[dt_date.getDay()];
 
       let element = `
       <div class="col s12">
@@ -191,19 +237,12 @@ const updateWeatherForecast = {
       addChildElement(".daily-forecast", element);
     });
   },
-  "location": function(city){
+  "location": function (city) {
     updateValue(".current > .card-content > .card-title > .location", city);
   }
 };
 
-
-function renderTooltips(){
-  tippy('.home', {
-    content: "Click to set current location as your home",
-    placement: "right"
-  })
-}
-
+// Main.js
 let functionTimeout = null;
 
 function forecast_data(url) {
@@ -231,7 +270,6 @@ function current_data(url) {
 
 document.addEventListener("DOMContentLoaded", function () {
   getLocation();
-  renderTooltips();
 });
 
 home.addEventListener("click", setHome);

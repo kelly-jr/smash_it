@@ -1,9 +1,15 @@
 const updateWeatherForecast = {
   "current": function (data) {
-    let {main:{temp, temp_max, temp_min, feels_like, humidity}, dt, sys:{sunrise, sunset}, wind: {speed: wind_speed}, visibility, weather:[{description, icon, main}]} = data;
-    dt = moment.unix(dt).format("HH:MM");
-    sunrise = moment.unix(sunrise).format("HH:MM");
-    sunset = moment.unix(sunset).format("HH:MM");
+    let {main: {temp, temp_max, temp_min, feels_like, humidity}, dt, sys: {sunrise, sunset}, wind: {speed: wind_speed}, visibility, weather: [{description, icon, main}]} = data;
+
+    let dt_date = new Date(dt * 1000);
+    let sunrise_date = new Date(sunrise * 1000);
+    let sunset_date =   new Date( sunset * 1000);
+
+    dt = `${dt_date.getUTCHours().toString().padStart(2, "0")}:${dt_date.getUTCMinutes().toString().padStart(2, "0")}`;
+    sunrise = `${sunrise_date.getUTCHours().toString().padStart(2, '0')}:${sunrise_date.getUTCMinutes().toString().padStart(2, '0')}`
+    sunset = `${sunset_date.getUTCHours().toString().padStart(2, '0')}:${sunset_date.getUTCMinutes().toString().padStart(2, '0')}`
+
     temp = Math.round(temp);
     feels_like = Math.round(feels_like);
     visibility = visibility / 1000;
@@ -26,11 +32,14 @@ const updateWeatherForecast = {
   },
   "hourly": function (data) {
     // Slice to only get 24hr predictions: Including current hr
+    clearChildElement(".hourly > .hourly-wrapper");
     data.slice(0, 24).map((row, index) => {
       let {temp, dt, weather: [{description, id, icon, main}]} = row;
       let day_night = icon.slice(-1);
       temp = Math.round(temp);
-      let hour = moment.unix(dt).format("HH");
+      let dt_date = new Date(dt * 1000);
+
+      let hour = `${dt_date.getUTCHours().toString().padStart(2, '0')}`
       let hour_class = "normal";
 
       if (index === 0) {
@@ -55,11 +64,14 @@ const updateWeatherForecast = {
   },
   "daily": function (data) {
     // Slice removes today from the list of forecast dates
+    clearChildElement(".daily-forecast");
     data.slice(1, 8).map((row, index) => {
       let {temp, dt, weather: [{description, id, icon, main}]} = row;
       let day_night = icon.slice(-1);
       let {min, max} = temp;
-      let day = moment.unix(dt).format("dddd");
+      let dt_date = new Date(dt * 1000);
+
+      let day = days[dt_date.getDay()];
 
       let element = `
       <div class="col s12">
@@ -83,7 +95,7 @@ const updateWeatherForecast = {
       addChildElement(".daily-forecast", element);
     });
   },
-  "location": function(city){
+  "location": function (city) {
     updateValue(".current > .card-content > .card-title > .location", city);
   }
 };

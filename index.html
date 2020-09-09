@@ -22,6 +22,7 @@
   <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
   <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="512x512"  href="/favicon-512x512.png">
   <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
@@ -30,7 +31,7 @@
 
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#FF0D1031">
 
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -40,8 +41,8 @@
   <link rel="stylesheet" href="src/css/vendor/materialize.min.css" media="screen,projection"/>
   <link rel="stylesheet" href="src/css/vendor/owfont-regular.min.css" media="screen,projection"/>
 
-  <link rel="stylesheet" href="src/css/normalize.css">
-  <link rel="stylesheet" href="src/css/main.css">
+
+  <link rel="stylesheet" href="src/css/main.min.css">
 
   <meta name="viewport" content="width=device-width, intital-scale=1.0">
 </head>
@@ -55,7 +56,7 @@
 <div class="container">
   <div class="search-field">
     <input type="search" id="breakdown_search" name="breakdown_filter" class="search-text" onkeyup="filterBreakdown()"
-           placeholder="Search..." autocomplete="off">
+           placeholder="Search..." autocomplete="off" aria-label="Search">
   </div>
 </div>
 
@@ -138,33 +139,33 @@
       <div class="container">
         <div class="row">
           <div class="col s6 sunrise">
-            <h4 class="title">Sunrise</h4>
+            <h3 class="title">Sunrise</h3>
             <p class="value"><span class="updatable"></span></p>
           </div>
           <div class="col s6 sunset">
-            <h4 class="title">Sunset</h4>
+            <h3 class="title">Sunset</h3>
             <p class="value"><span class="updatable"></span></p>
           </div>
         </div>
 
         <div class="row">
           <div class="col s6 wind">
-            <h4 class="title">Wind</h4>
+            <h3 class="title">Wind</h3>
             <p class="value"><span class="updatable"></span>&nbsp;<span class="speed_unit">mps</span></p>
           </div>
           <div class="col s6 feel">
-            <h4 class="title">Feels like</h4>
+            <h3 class="title">Feels like</h3>
             <p class="value"><span class="updatable"></span><span class="temp_unit">&deg;</span></p>
           </div>
         </div>
 
         <div class="row no-border">
           <div class="col s6 vision">
-            <h4 class="title">Visibility</h4>
+            <h3 class="title">Visibility</h3>
             <p class="value"><span class="updatable"></span>&nbsp;<span class="distance_unit">km</span></p>
           </div>
           <div class="col s6 humidity">
-            <h4 class="title">Humidity</h4>
+            <h3 class="title">Humidity</h3>
             <p class="value"><span class="updatable"></span><span class="humidity_unit">%</span></p>
           </div>
         </div>
@@ -176,13 +177,10 @@
 
 
 <script src="sw.js"></script>
-<script src="src/js/vendor/modernizr-3.11.2.min.js"></script>
-<script src="src/js/vendor/moment.js"></script>
-<script src="src/js/vendor/popper.min.js"></script>
-<script src="src/js/vendor/tippy-bundle.umd.min.js"></script>
+<!--<script src="src/js/vendor/moment.js"></script>-->
 
 <!--JavaScript at end of body for optimized loading-->
-<script type="text/javascript" src="src/js/vendor/materialize.min.js"></script>
+<!--<script type="text/javascript" src="src/js/vendor/materialize.min.js"></script>-->
 
 <!--<script src="./src/js/_variables.js"></script>-->
 

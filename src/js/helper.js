@@ -27,25 +27,12 @@ function getJSONData(url, callback) {
 }
 
 var getLocation = () => {
-  let location;
+  let location = MY_LOCATION;
 
-  if(localStorage.getItem("home")){
+  if (localStorage.getItem("home")) {
     location = JSON.parse(localStorage.getItem("home"));
   }
 
-  if (!location) {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        // debugger;
-        MY_LOCATION = {lat: position.coords.latitude, lng: position.coords.longitude};
-      });
-    }
-    location = MY_LOCATION;
-    console.log(location);
-  }
-  debugger;
-
-  console.log(location);
   getWeatherData({...location});
 };
 
@@ -65,6 +52,10 @@ function updateValue(selector, value) {
   document.querySelector(selector).innerHTML = value;
 }
 
+function clearChildElement(selector) {
+  document.querySelector(selector).innerHTML = "";
+}
+
 function addChildElement(selector, element) {
   document.querySelector(selector).innerHTML += element;
 }
@@ -74,6 +65,10 @@ function addChildElement(selector, element) {
 * @param b {Object} - Second object */
 
 function objectsAreEquivalent(a, b) {
+  if(!a || !b){
+    return false;
+  }
+
   // Create arrays of property names
   var aProps = Object.getOwnPropertyNames(a);
   var bProps = Object.getOwnPropertyNames(b);

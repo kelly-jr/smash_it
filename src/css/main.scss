@@ -1,3 +1,4 @@
+@import "normalize";
 @import "defaults";
 @import "override";
 @import "print";
@@ -9,7 +10,6 @@ body {
   p {
     text-align: center;
   }
-
   span {
     &.low {
       color: $white_transparent;
@@ -22,6 +22,7 @@ nav {
 
   .brand-logo {
     padding: 0 15px;
+    color: $black;
   }
 }
 
@@ -238,5 +239,10 @@ input.search-text::-webkit-search-cancel-button {
   margin: auto;
 }
 
+.right-align{
+  text-align: right;
+}
 
-
+.left-align{
+  text-align: left;
+}
